@@ -2,28 +2,22 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-// Сцена
 const scene = new THREE.Scene();
 
-// Камера
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0, 3, 20);
 
-// Рендерер
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// Свет
 scene.add(new THREE.AmbientLight(0xffffff, 0.7));
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(5, 10, 7);
 scene.add(light);
 
-// Материал — серый
 const material = new THREE.MeshStandardMaterial({ color: 0x888888 });
 
-// Три фигуры
 const cube = new THREE.Mesh(new THREE.BoxGeometry(1.5, 1.5, 1.5), material);
 cube.position.set(-4, 1, 0);
 
@@ -35,7 +29,6 @@ torus.position.set(1.5, 1, 0);
 
 scene.add(cube, sphere, torus);
 
-// Загрузка своей модели
 const loader = new GLTFLoader();
 let model = null;
 
@@ -58,11 +51,9 @@ loader.load(
     }
 );
 
-// OrbitControls
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.target.set(0, 1, 0);
 
-// Анимация
 function animate() {
     requestAnimationFrame(animate);
 
@@ -82,7 +73,6 @@ function animate() {
 
 animate();
 
-// Ресайз
 window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
